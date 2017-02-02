@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-route.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="/js/app.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/css/style.css" charset="utf-8">
+    <title>Congress</title>
+    <base href="/">
+  </head>
+  <body ng-app='congressApp'>
+    <header>
+      <nav>
+        <div class="container-fluid">
+          <ul class="nav nav-pills nav-justified">
+            <a class="navbar-brand" href="/">
+              <img role="presentation" id="congImg" src="/images/congress top.png" alt="">
+            </a>
+            <li role="presentation"><a href="/about">ABOUT</a></li>
+            <li role="presentation"><a href="/bills">BILLS</a></li>
+            <li role="presentation"><a href="/senate">SENATE</a></li>
+            <li role="presentation"><a href="/house">HOUSE</a></li>
+            <li role="presentation"><a href="/mycongress">MY CONGRESS</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <main ng-view></main>
+  </body>
+</html>

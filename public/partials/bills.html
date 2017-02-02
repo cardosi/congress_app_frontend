@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Bills</title>
+  </head>
+  <body>
+    <h1>Bills of the 115th Congress</h1>
+    <div class="row">
+      <div class="col-md-6">
+        <h3>Senate Bills</h3>
+        <div ng-repeat="sBill in bCtrl.sBills">
+          <small>{{sBill.number}}</small><br/>
+          <small>Introduced: {{sBill.introduced_date}}</small>
+          <h4>{{sBill.title}}</h4>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <h3>House Bills</h3>
+        <div ng-repeat="hBill in bCtrl.hBills">
+          <small>{{hBill.number}}</small><br/>
+          <small>Introduced: {{hBill.introduced_date}}</small>
+          <h4>{{hBill.title}}</h4>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
