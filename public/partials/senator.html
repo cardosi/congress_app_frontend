@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/css/senator.css">
+    <title></title>
+  </head>
+  <body>
+    <h1>Senator {{senCtrl.senator.first_name}} {{senCtrl.senator.last_name}}</h1>
+    <hr>
+    <div class="row">
+      <div class="col-md-4">
+        <a href="https://facebook.com/profile.php?id={{senCtrl.senator.facebook_id}}" target="_blank"><img src="/images/fb_icon.jpg" alt=""></a>
+        <a href="https://twitter.com/{{senCtrl.senator.twitter_account}}" target="_blank"><img src="/images/twitter_icon.png" alt=""></a>
+        <a href="https://youtube.com/user/{{senCtrl.senator.youtube_account}}" target="_blank"><img src="/images/youtube_icon.png" alt=""></a>
+        <a href="{{senCtrl.senator.url}}" target="_blank"><img src="/images/web_icon.png" alt=""></a>
+
+      </div>
+      <div class="col-md-8">
+
+      </div>
+    </div>
+  </body>
+</html>

@@ -35,12 +35,36 @@ congressApp.controller('billsController', ['$http', function($http){
     }.bind(this)
   );
 
-
 }]);
 
-congressApp.controller('senateController', function(){
+congressApp.controller('senateController', ['$http', function($http){
+  $http({
+    method: 'GET',
+    url: root + '115/senate/members.json',
+    headers: {'X-API-Key': apiKey}
+  }).then(
+    function(response){
+      console.log(response);
+      this.members = response.data.results[0].members;
+      console.log(this.members);
+    }.bind(this)
+  );
+}]);
 
-});
+congressApp.controller('senatorController', ['$routeParams', '$http', function($routeParams, $http){
+  this.id = $routeParams.id
+  $http({
+    method: 'GET',
+    url: root + 'members/' + this.id + '.json',
+    headers: {'X-API-Key': apiKey}
+  }).then(
+    function(response){
+      console.log(response);
+      this.senator = response.data.results[0]
+      console.log(this.senator);
+    }.bind(this)
+  )
+}]);
 
 congressApp.controller('houseController', function(){
 
@@ -79,6 +103,12 @@ congressApp.config(['$routeProvider', '$locationProvider', function($routeProvid
     templateUrl: 'partials/senate.html',
     controller: 'senateController',
     controllerAs: 'sCtrl'
+  });
+
+  $routeProvider.when('/senate/:id', {
+    templateUrl: 'partials/senator.html',
+    controller: 'senatorController',
+    controllerAs: 'senCtrl'
   });
 
   $routeProvider.when('/house', {
