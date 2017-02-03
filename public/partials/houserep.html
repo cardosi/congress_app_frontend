@@ -2,25 +2,25 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="/css/senator.css">
+    <link rel="stylesheet" href="/css/houserep.css">
     <title></title>
   </head>
   <body>
-    <h1>Senator {{senCtrl.senator.first_name}} {{senCtrl.senator.last_name}}</h1>
+    <h1>House Representative: {{repCtrl.rep.first_name}} {{repCtrl.rep.last_name}}</h1>
     <hr>
     <div class="row">
       <div class="col-md-4">
         <div class="row">
-          <img id="senPic" src="http://bioguide.congress.gov/bioguide/photo/{{senCtrl.senator.member_id.charAt(0)}}/{{senCtrl.senator.member_id}}.jpg" alt="">
+          <img id="repPic" src="http://bioguide.congress.gov/bioguide/photo/{{repCtrl.rep.member_id.charAt(0)}}/{{repCtrl.rep.member_id}}.jpg" alt="">
           <div class="contactBtns">
-            <a href="https://facebook.com/profile.php?id={{senCtrl.senator.facebook_id}}" target="_blank"><img src="/images/fb_icon.jpg" alt=""></a>
-            <a href="https://twitter.com/{{senCtrl.senator.twitter_account}}" target="_blank"><img src="/images/twitter_icon.png" alt=""></a>
-            <a href="https://youtube.com/user/{{senCtrl.senator.youtube_account}}" target="_blank"><img src="/images/youtube_icon.png" alt=""></a>
-            <a href="{{senCtrl.senator.url}}" target="_blank"><img id="webImg" src="/images/web_icon.png" alt=""></a>
+            <a href="https://facebook.com/profile.php?id={{repCtrl.rep.facebook_id}}" target="_blank"><img src="/images/fb_icon.jpg" alt=""></a>
+            <a href="https://twitter.com/{{repCtrl.rep.twitter_account}}" target="_blank"><img src="/images/twitter_icon.png" alt=""></a>
+            <a href="https://youtube.com/user/{{repCtrl.rep.youtube_account}}" target="_blank"><img src="/images/youtube_icon.png" alt=""></a>
+            <a href="{{repCtrl.rep.url}}" target="_blank"><img id="webImg" src="/images/web_icon.png" alt=""></a>
           </div>
-          <h3 class="party">{{senCtrl.senator.roles[0].state}} - {{senCtrl.party}}</h3>
+          <h3 class="party">{{repCtrl.party}} - {{repCtrl.rep.roles[0].state}} District {{repCtrl.rep.roles[0].district}}</h3>
         </div>
-        <div class="row role" ng-repeat="role in senCtrl.senator.roles">
+        <div class="row role" ng-repeat="role in repCtrl.rep.roles">
           <small>{{role.chamber}} {{role.congress}} From: {{role.start_date}} to {{role.end_date}}</small>
           <div class="row">
             <div class="stat col-xs-4">
@@ -55,7 +55,7 @@
       </div>
       <div class="col-md-8">
         <h2>Votes</h2>
-        <div class="row vote" ng-repeat="vote in senCtrl.senVotes">
+        <div class="row vote" ng-repeat="vote in repCtrl.repVotes">
           <small class="billNum">{{vote.bill.number}}</small>
           <small class="billDate">{{vote.chamber}} {{vote.congress}} {{vote.date}}</small><br/>
           <h5>{{vote.bill.title}}</h5>
@@ -64,5 +64,6 @@
         </div>
       </div>
     </div>
+
   </body>
 </html>

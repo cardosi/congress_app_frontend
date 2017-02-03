@@ -60,7 +60,7 @@ congressApp.controller('senatorController', ['$routeParams', '$http', function($
   }).then(
     function(response){
       console.log(response);
-      this.senator = response.data.results[0]
+      this.senator = response.data.results[0];
       console.log(this.senator);
     }.bind(this)).then(
       function(){
@@ -75,7 +75,7 @@ congressApp.controller('senatorController', ['$routeParams', '$http', function($
     );
 
     $http({
-      method: 'Get',
+      method: 'GET',
       url: root + 'members/' + this.id + '/votes.json',
       headers: {'X-API-Key': apiKey}
     }).then(
@@ -88,9 +88,56 @@ congressApp.controller('senatorController', ['$routeParams', '$http', function($
 
 }]);
 
-congressApp.controller('houseController', function(){
+congressApp.controller('houseController', ['$http', function($http){
+  $http({
+    method: 'GET',
+    url: root + '115/house/members.json',
+    headers: {'X-API-Key': apiKey}
+  }).then(
+    function(response){
+      console.log(response);
+      this.members = response.data.results[0].members;
+      console.log(this.members);
+    }.bind(this)
+  );
 
-});
+}]);
+
+congressApp.controller('houseRepController', ['$routeParams', '$http', function($routeParams, $http){
+  this.id = $routeParams.id
+  $http({
+    method: 'GET',
+    url: root + 'members/' + this.id + '.json',
+    headers: {'X-API-Key': apiKey}
+  }).then(
+    function(response){
+      console.log(response);
+      this.rep = response.data.results[0];
+      console.log(this.rep);
+    }.bind(this)).then(
+      function(){
+        if(this.rep.current_party = "D"){
+          this.party = "Democrat"
+        }else if(this.rep.current_party = "R"){
+          this.party = "Republican"
+        }else{
+          this.party = "Independent"
+        }
+      }.bind(this)
+    );
+
+    $http({
+      method: 'GET',
+      url: root + 'members/' + this.id + '/votes.json',
+      headers: {'X-API-Key': apiKey}
+    }).then(
+      function(response){
+        this.repVotes = response.data.results[0].votes;
+        console.log(this.repVotes);
+      }.bind(this)
+    );
+
+}]);
 
 congressApp.controller('myCongressController', function(){
 
@@ -137,6 +184,12 @@ congressApp.config(['$routeProvider', '$locationProvider', function($routeProvid
     templateUrl: 'partials/house.html',
     controller: 'houseController',
     controllerAs: 'hCtrl'
+  });
+
+  $routeProvider.when('/house/:id', {
+    templateUrl: 'partials/houserep.html',
+    controller: 'houseRepController',
+    controllerAs: 'repCtrl'
   });
 
   $routeProvider.when('/mycongress', {
