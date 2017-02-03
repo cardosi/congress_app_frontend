@@ -10,14 +10,58 @@
     <hr>
     <div class="row">
       <div class="col-md-4">
-        <a href="https://facebook.com/profile.php?id={{senCtrl.senator.facebook_id}}" target="_blank"><img src="/images/fb_icon.jpg" alt=""></a>
-        <a href="https://twitter.com/{{senCtrl.senator.twitter_account}}" target="_blank"><img src="/images/twitter_icon.png" alt=""></a>
-        <a href="https://youtube.com/user/{{senCtrl.senator.youtube_account}}" target="_blank"><img src="/images/youtube_icon.png" alt=""></a>
-        <a href="{{senCtrl.senator.url}}" target="_blank"><img src="/images/web_icon.png" alt=""></a>
-
+        <div class="row">
+          <img id="senPic" src="http://bioguide.congress.gov/bioguide/photo/{{senCtrl.senator.member_id.charAt(0)}}/{{senCtrl.senator.member_id}}.jpg" alt="">
+          <div class="contactBtns">
+            <a href="https://facebook.com/profile.php?id={{senCtrl.senator.facebook_id}}" target="_blank"><img src="/images/fb_icon.jpg" alt=""></a>
+            <a href="https://twitter.com/{{senCtrl.senator.twitter_account}}" target="_blank"><img src="/images/twitter_icon.png" alt=""></a>
+            <a href="https://youtube.com/user/{{senCtrl.senator.youtube_account}}" target="_blank"><img src="/images/youtube_icon.png" alt=""></a>
+            <a href="{{senCtrl.senator.url}}" target="_blank"><img id="webImg" src="/images/web_icon.png" alt=""></a>
+          </div>
+          <h3 class="party">{{senCtrl.party}}</h3>
+        </div>
+        <div class="row role" ng-repeat="role in senCtrl.senator.roles">
+          <small>{{role.chamber}} {{role.congress}} From: {{role.start_date}} to {{role.end_date}}</small>
+          <div class="row">
+            <div class="stat col-xs-4">
+              <h6>Missed Votes</h6>
+              <h6>{{role.missed_votes_pct}}%</h6>
+            </div>
+            <div class="stat col-xs-4">
+              <h6>Votes With Party</h6>
+              <h6>{{role.votes_with_party_pct}}%</h6>
+            </div>
+            <div class="stat col-xs-4">
+              <h6>Seniority</h6>
+              <h6>{{role.seniority}}</h6>
+            </div>
+          </div>
+          <div class="row">
+            <div class="stat col-xs-6">
+              <h6>Bills Sponsored</h6>
+              <h6>{{role.bills_sponsored}}</h6>
+            </div>
+            <div class="stat col-xs-6">
+              <h6>Bills Cosponsored</h6>
+              <h6>{{role.bills_cosponsored}}</h6>
+            </div>
+          </div>
+          <div class="row">
+            <ul ng-repeat="committee in role.committees">
+              <li>{{committee.name}}</li>
+            </ul>
+          </div>
+        </div>
       </div>
       <div class="col-md-8">
-
+        <h2>Votes</h2>
+        <div class="row vote" ng-repeat="vote in senCtrl.senVotes">
+          <small class="billNum">{{vote.bill.number}}</small>
+          <small class="billDate">{{vote.chamber}} {{vote.congress}} {{vote.date}}</small><br/>
+          <h5>{{vote.bill.title}}</h5>
+          <h5>Vote: {{vote.position}} - {{vote.question}}</h5>
+          <p><span class="concern">Concerning:</span> {{vote.description}}</p>
+        </div>
       </div>
     </div>
   </body>

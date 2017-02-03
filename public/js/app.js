@@ -62,8 +62,30 @@ congressApp.controller('senatorController', ['$routeParams', '$http', function($
       console.log(response);
       this.senator = response.data.results[0]
       console.log(this.senator);
-    }.bind(this)
-  )
+    }.bind(this)).then(
+      function(){
+        if(this.senator.current_party = "D"){
+          this.party = "Democrat"
+        }else if(this.senator.current_party = "R"){
+          this.party = "Republican"
+        }else{
+          this.party = "Independent"
+        }
+      }.bind(this)
+    );
+
+    $http({
+      method: 'Get',
+      url: root + 'members/' + this.id + '/votes.json',
+      headers: {'X-API-Key': apiKey}
+    }).then(
+      function(response){
+        this.senVotes = response.data.results[0].votes;
+        console.log(this.senVotes);
+      }.bind(this)
+    );
+
+
 }]);
 
 congressApp.controller('houseController', function(){
