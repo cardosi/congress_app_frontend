@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/cardosi/congress_app_frontend#readme",
   "dependencies": {
-    "express": "^4.14.1",
-    "xml2js": "^0.4.17"
+    "congressional-district-finder": "^0.1.1",
+    "express": "^4.14.1"
   }
 }

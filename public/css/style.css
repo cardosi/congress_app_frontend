@@ -2,3 +2,7 @@
   height: 40px;
   width: auto;
 }
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}

@@ -1,3 +1,38 @@
 <div>
   <h1>My Congress Page</h1>
+  <form class="form-inline" ng-submit="mCtrl.getDis()">
+    <div class="form-group">
+      <label for="address">Address</label>
+      <input ng-model="mCtrl.dis[0]" type="text" class="form-control" id="address" placeholder="123 E. Capitol St">
+    </div>
+    <div class="form-group">
+      <label for="city">City</label>
+      <input ng-model="mCtrl.dis[1]" type="text" class="form-control" id="city" placeholder="Washington">
+    </div>
+    <div class="form-group">
+      <label for="state">State</label>
+      <input ng-model="mCtrl.dis[2]" type="text" class="form-control" id="state" placeholder="DC">
+    </div>
+    <button type="submit" class="btn btn-default">Get My Congress</button>
+  </form>
+  <div ng-if="mCtrl.senLoad && mCtrl.houseLoad">
+    <h2>{{mCtrl.districtName}}</h2>
+    <div class="row">
+      <div class="col-md-8">
+        <h3>Senators</h3>
+        <div class="row">
+          <div class="col-md-6" ng-repeat="senator in mCtrl.senators">
+            <h4>{{senator.name}}</h4>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <h3>Representatives</h3>
+        <div class="row">
+          <h4>{{mCtrl.rep.name}}</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>

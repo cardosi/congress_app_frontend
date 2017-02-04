@@ -5,7 +5,36 @@
     <title>Bills</title>
   </head>
   <body>
-    <h1>Bills of the 115th Congress</h1>
+    <br/>
+    <div class="row">
+      <div class="col-sm-3">
+        <label class="control-label" for="congSelect">Congress:</label>
+        <select id="congSelect" class="form-control">
+          <option>115</option>
+          <option>114</option>
+          <option>113</option>
+          <option>112</option>
+          <option>111</option>
+          <option>110</option>
+          <option>109</option>
+          <option>108</option>
+          <option>107</option>
+          <option>106</option>
+          <option>105</option>
+          <option>104</option>
+        </select>
+      </div>
+      <div class="col-sm-3">
+        <label class="control-label" for="billType">Type:</label>
+        <select id="billType" class="form-control">
+          <option>Introduced</option>
+          <option>Updated</option>
+          <option>Passed</option>
+          <option>Major</option>
+        </select>
+      </div>
+    </div>
+    <h1>Bills of the {{bCtrl.ordinal(bCtrl.congress)}} Congress</h1>
     <div class="row">
       <div class="col-md-6">
         <h3>Senate Bills</h3>
