@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Bills</title>
+  </head>
+  <body>
+    <br/>
+    <h1>Senate Bills of the {{sbCtrl.ordinal(sbCtrl.congress)}} Congress</h1>
+    <hr>
+    <div class="row">
+      <div class="col-md-3">
+        <form ng-submit="sbCtrl.updateBills()">
+          <div class="form-group">
+            <label class="control-label" for="congSelect">Congress:</label>
+            <select ng-model="sbCtrl.congNum" id="congSelect" class="form-control">
+              <option>115</option>
+              <option>114</option>
+              <option>113</option>
+              <option>112</option>
+              <option>111</option>
+              <option>110</option>
+              <option>109</option>
+              <option>108</option>
+              <option>107</option>
+              <option>106</option>
+              <option>105</option>
+              <option>104</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="control-label" for="billType">Type:</label>
+            <select ng-model="sbCtrl.congType" id="billType" class="form-control">
+              <option>introduced</option>
+              <option>updated</option>
+              <option>passed</option>
+              <option>major</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-default">Update</button>
+        </form>
+      </div>
+      <div class="col-md-9">
+        <div ng-repeat="sBill in sbCtrl.sBills">
+          <div ng-click="sbCtrl.setBillQ(sBill.bill_uri)">
+            <a href="bill/{{sBill.number}}">
+              <small>{{sBill.number}}</small><br/>
+              <small>Introduced: {{sBill.introduced_date}}</small>
+              <h4>{{sBill.title}}</h4>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

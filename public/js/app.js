@@ -16,6 +16,10 @@ var ordinal = function(i){
     return i + "th";
 }
 
+// congressApp.factory('billService', function(){
+//   var billQ = '';
+// });
+
 congressApp.controller('mainController', function(){
 
 });
@@ -24,7 +28,7 @@ congressApp.controller('aboutController', function(){
 
 });
 
-congressApp.controller('billsController', ['$http', function($http){
+congressApp.controller('senatebillsController', ['$rootScope', '$http', function($rootScope, $http){
   this.ordinal = ordinal;
   this.congress = 115;
   $http({
@@ -39,6 +43,40 @@ congressApp.controller('billsController', ['$http', function($http){
     }.bind(this)
   );
 
+  this.setBillQ = function(uri){
+    $rootScope.billQ = uri;
+    console.log($rootScope.billQ);
+  }
+
+  this.updateBills = function(){
+    console.log(this.congNum);
+    console.log(this.congType);
+    $http({
+      method: 'GET',
+      url: root + this.congNum + '/senate/bills/' + this.congType + '.json',
+      headers: {'X-API-Key': apiKey}
+    }).then(
+      function(response){
+        console.log(response);
+        this.sBills = response.data.results[0].bills;
+        this.congress = this.congNum;
+        console.log(this.sBills);
+      }.bind(this)
+    );
+  }
+
+}]);
+
+congressApp.controller('housebillsController', ['$rootScope', '$http', function($rootScope, $http){
+  this.ordinal = ordinal;
+  this.congress = 115;
+
+  this.setBillQ = function(uri){
+    $rootScope.billQ = uri;
+    console.log($rootScope.billQ);
+  }
+
+
   $http({
     method: 'GET',
     url: root + '115/house/bills/introduced.json',
@@ -50,6 +88,24 @@ congressApp.controller('billsController', ['$http', function($http){
       console.log(this.hBills);
     }.bind(this)
   );
+
+  this.updateBills = function(){
+    console.log(this.congNum);
+    console.log(this.congType);
+    $http({
+      method: 'GET',
+      url: root + this.congNum + '/house/bills/' + this.congType + '.json',
+      headers: {'X-API-Key': apiKey}
+    }).then(
+      function(response){
+        console.log(response);
+        this.hBills = response.data.results[0].bills;
+        this.congress = this.congNum;
+        console.log(this.hBills);
+      }.bind(this)
+    );
+  }
+
 
 }]);
 
@@ -101,6 +157,21 @@ congressApp.controller('senatorController', ['$routeParams', '$http', function($
       }.bind(this)
     );
 
+}]);
+
+congressApp.controller('billController', ['$rootScope', '$routeParams', '$http', function($rootScope, $routeParams, $http){
+  // this.id = $routeParams.id
+  console.log($rootScope.billQ);
+  $http({
+    method: 'GET',
+    url: $rootScope.billQ,
+    headers: {'X-API-Key': apiKey}
+  }).then(
+    function(response){
+      console.log(response);
+      this.bill = response.data.results[0];
+    }.bind(this)
+  );
 
 }]);
 
@@ -241,10 +312,16 @@ congressApp.config(['$routeProvider', '$locationProvider', function($routeProvid
     controllerAs: 'aCtrl'
   });
 
-  $routeProvider.when('/bills', {
-    templateUrl: 'partials/bills.html',
-    controller: 'billsController',
-    controllerAs: 'bCtrl'
+  $routeProvider.when('/senatebills', {
+    templateUrl: 'partials/senatebills.html',
+    controller: 'senatebillsController',
+    controllerAs: 'sbCtrl'
+  });
+
+  $routeProvider.when('/housebills', {
+    templateUrl: 'partials/housebills.html',
+    controller: 'housebillsController',
+    controllerAs: 'hbCtrl'
   });
 
   $routeProvider.when('/senate', {
@@ -257,6 +334,12 @@ congressApp.config(['$routeProvider', '$locationProvider', function($routeProvid
     templateUrl: 'partials/senator.html',
     controller: 'senatorController',
     controllerAs: 'senCtrl'
+  });
+
+  $routeProvider.when('/bill/:id', {
+    templateUrl: 'partials/bill.html',
+    controller: 'billController',
+    controllerAs: 'bCtrl'
   });
 
   $routeProvider.when('/house', {
