@@ -157,6 +157,30 @@ congressApp.controller('senatorController', ['$routeParams', '$http', function($
       }.bind(this)
     );
 
+    this.voteData = {};
+
+    this.rollCall = function(congress, session, rcNum, x){
+      console.log(x);
+      var y = x;
+      $http({
+        method: 'GET',
+        url: root + congress + '/senate/sessions/' + session + '/votes/' + rcNum + '.json',
+        headers: {'X-API-Key': apiKey}
+      }).then(
+        function(response){
+          console.log(y);
+          console.log(response);
+          // this.voteData = {x: response.data.results.votes.vote};
+          var key = x;
+          // this.voteData = {};
+          this.voteData[key] = response.data.results.votes.vote;
+          console.log(this.voteData[key]);
+          console.log(this.voteData);
+
+        }.bind(this)
+      )
+    }
+
 }]);
 
 congressApp.controller('billController', ['$rootScope', '$routeParams', '$http', function($rootScope, $routeParams, $http){
@@ -270,12 +294,24 @@ congressApp.controller('myCongressController', ['$http', function($http){
       headers: {'X-API-Key': apiKey}
     }).then(
       function(response){
-        console.log(this.senators);
         this.senators = response.data.results;
         this.senLoad = true;
+        console.log(this.senators);
+        // this.getSenPic(this.senators[0].id);
       }.bind(this)
     );
   }
+
+  // this.getSenPic = function(senId){
+  //   $http({
+  //     method: 'GET',
+  //     url: 'http://bioguide.congress.gov/bioguide/photo/' + senId.charAt(0) + '/' + senId + '.jpg'
+  //   }).then(
+  //     function(response){
+  //       console.log(response);
+  //     }.bind(this)
+  //   );
+  // }
 
   this.getHouse = function(state, district){
     $http({
@@ -289,6 +325,16 @@ congressApp.controller('myCongressController', ['$http', function($http){
         this.houseLoad = true;
       }.bind(this)
     )
+  }
+
+  this.party = function(party){
+      if(party === "D"){
+        return "Democrat"
+      }else if(party === "R"){
+        return "Republican"
+      }else{
+        return "Independent"
+      }
   }
 
 }]);

@@ -55,12 +55,53 @@
       </div>
       <div class="col-md-8">
         <h2>Votes</h2>
-        <div class="row vote" ng-repeat="vote in senCtrl.senVotes">
-          <small class="billNum">{{vote.bill.number}}</small>
-          <small class="billDate">{{vote.chamber}} {{vote.congress}} {{vote.date}}</small><br/>
-          <h5>{{vote.bill.title}}</h5>
-          <h5>Vote: {{vote.position}} - {{vote.question}}</h5>
-          <p><span class="concern">Concerning:</span> {{vote.description}}</p>
+        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+          <div class="row vote panel panel-default" ng-repeat="vote in senCtrl.senVotes track by $index">
+            <small class="billNum">{{vote.bill.number}}</small>
+            <small class="billDate">{{vote.chamber}} {{vote.congress}} {{vote.date}}</small><br/>
+            <div class="panel-heading" role="tab" id="headingOne">
+              <h5 class="panel-title">Vote: {{vote.position}} - {{vote.question}}</h5>
+              <p><span class="concern">Concerning:</span> {{vote.description}}</p>
+              <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapse{{$index}}" aria-expanded="false" aria-controls="collapse{{$index}}" ng-click="senCtrl.rollCall(vote.congress, vote.session, vote.roll_call, $index)">More
+              </button>
+            </div>
+            <div id="collapse{{$index}}" class="panel-collapse collapse" role="tabPanel" aria-labelledby="headingOne">
+              <div class="panel-body">
+                <div class="row">
+                  <div class="col-xs-3">
+                    <h5>Outcome<br/>{{senCtrl.voteData[$index].result}}</h5>
+                    <h6>No Votes <span class="badge">{{senCtrl.voteData[$index].total.no}}</span></h6>
+                    <h6>Yes Votes <span class="badge">{{senCtrl.voteData[$index].total.yes}}</span></h6>
+                    <h6>Present <span class="badge">{{senCtrl.voteData[$index].total.present}}</span></h6>
+                    <h6>Not Voting: <span class="badge">{{senCtrl.voteData[$index].total.not_voting}}</span></h6>
+                  </div>
+                  <div class="col-xs-3">
+                    <h5>Democrat Votes</h5>
+                    <h5>Majority: {{senCtrl.voteData[$index].democratic.majority_position}}</h5>
+                    <h6>No Votes <span class="badge">{{senCtrl.voteData[$index].democratic.no}}</span></h6>
+                    <h6>Yes Votes <span class="badge">{{senCtrl.voteData[$index].democratic.yes}}</span></h6>
+                    <h6>Present <span class="badge">{{senCtrl.voteData[$index].democratic.present}}</span></h6>
+                    <h6>Not Voting: <span class="badge">{{senCtrl.voteData[$index].democratic.not_voting}}</span></h6>
+                  </div>
+                  <div class="col-xs-3">
+                    <h5>Republican Votes</h5>
+                    <h5>Majority: {{senCtrl.voteData[$index].republican.majority_position}}</h5>
+                    <h6>No Votes <span class="badge">{{senCtrl.voteData[$index].republican.no}}</span></h6>
+                    <h6>Yes Votes <span class="badge">{{senCtrl.voteData[$index].republican.yes}}</span></h6>
+                    <h6>Present <span class="badge">{{senCtrl.voteData[$index].republican.present}}</span></h6>
+                    <h6>Not Voting: <span class="badge">{{senCtrl.voteData[$index].republican.not_voting}}</span></h6>
+                  </div>
+                  <div class="col-xs-3">
+                    <h5>Independent Votes</h5>
+                    <h6>No Votes <span class="badge">{{senCtrl.voteData[$index].independent.no}}</span></h6>
+                    <h6>Yes Votes <span class="badge">{{senCtrl.voteData[$index].independent.yes}}</span></h6>
+                    <h6>Present <span class="badge">{{senCtrl.voteData[$index].independent.present}}</span></h6>
+                    <h6>Not Voting: <span class="badge">{{senCtrl.voteData[$index].independent.not_voting}}</span></h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -1,38 +1,66 @@
-<div>
-  <h1>My Congress Page</h1>
-  <form class="form-inline" ng-submit="mCtrl.getDis()">
-    <div class="form-group">
-      <label for="address">Address</label>
-      <input ng-model="mCtrl.dis[0]" type="text" class="form-control" id="address" placeholder="123 E. Capitol St">
-    </div>
-    <div class="form-group">
-      <label for="city">City</label>
-      <input ng-model="mCtrl.dis[1]" type="text" class="form-control" id="city" placeholder="Washington">
-    </div>
-    <div class="form-group">
-      <label for="state">State</label>
-      <input ng-model="mCtrl.dis[2]" type="text" class="form-control" id="state" placeholder="DC">
-    </div>
-    <button type="submit" class="btn btn-default">Get My Congress</button>
-  </form>
-  <div ng-if="mCtrl.senLoad && mCtrl.houseLoad">
-    <h2>{{mCtrl.districtName}}</h2>
-    <div class="row">
-      <div class="col-md-8">
-        <h3>Senators</h3>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/css/mycongress.css">
+    <title></title>
+  </head>
+  <body>
+      <h1>My Congress Page</h1>
+      <form class="form-inline" ng-submit="mCtrl.getDis()">
+        <div class="form-group">
+          <label for="address">Address</label>
+          <input ng-model="mCtrl.dis[0]" type="text" class="form-control" id="address" placeholder="123 E. Capitol St">
+        </div>
+        <div class="form-group">
+          <label for="city">City</label>
+          <input ng-model="mCtrl.dis[1]" type="text" class="form-control" id="city" placeholder="Washington">
+        </div>
+        <div class="form-group">
+          <label for="state">State</label>
+          <input ng-model="mCtrl.dis[2]" type="text" class="form-control" id="state" placeholder="DC" maxlength="2">
+        </div>
+        <button type="submit" class="btn btn-default">Get My Congress</button>
+      </form>
+      <div ng-if="mCtrl.senLoad && mCtrl.houseLoad">
+        <h2>{{mCtrl.districtName}}</h2>
         <div class="row">
-          <div class="col-md-6" ng-repeat="senator in mCtrl.senators">
-            <h4>{{senator.name}}</h4>
+          <div class="col-sm-8">
+            <div class="row">
+              <div class="col-sm-6" ng-repeat="senator in mCtrl.senators">
+                <a href="senate/{{senator.id}}">
+                <h4>{{senator.name}}</h4>
+                <img class="senPic" src="http://bioguide.congress.gov/bioguide/photo/{{senator.id.charAt(0)}}/{{senator.id}}.jpg" alt="">
+                <div class="contactBtns">
+                  <a href="https://facebook.com/profile.php?id={{senator.facebook_id}}" target="_blank"><img src="/images/fb_icon.jpg" alt=""></a>
+                  <a href="https://twitter.com/{{senator.twitter_id}}" target="_blank"><img src="/images/twitter_icon.png" alt=""></a>
+                  <a href="https://youtube.com/user/{{senator.youtube_id}}" target="_blank"><img src="/images/youtube_icon.png" alt=""></a>
+                  <a href="{{senator.url}}" target="_blank"><img id="webImg" src="/images/web_icon.png" alt=""></a>
+                </div>
+                <h4>{{senator.role}}</h4>
+                <h4>{{mCtrl.party(senator.party)}}</h4>
+                <h4>Next Election: {{senator.next_election}}</h4>
+              </a>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <a href="house/{{mCtrl.rep.id}}">
+            <h4>{{mCtrl.rep.name}}</h4>
+            <img class="senPic" src="http://bioguide.congress.gov/bioguide/photo/{{mCtrl.rep.id.charAt(0)}}/{{mCtrl.rep.id}}.jpg" alt="">
+            <div class="contactBtns">
+              <a href="https://facebook.com/profile.php?id={{mCtrl.rep.facebook_id}}" target="_blank"><img src="/images/fb_icon.jpg" alt=""></a>
+              <a href="https://twitter.com/{{mCtrl.rep.twitter_id}}" target="_blank"><img src="/images/twitter_icon.png" alt=""></a>
+              <a href="https://youtube.com/user/{{mCtrl.rep.youtube_id}}" target="_blank"><img src="/images/youtube_icon.png" alt=""></a>
+              <a href="{{mCtrl.rep.url}}" target="_blank"><img id="webImg" src="/images/web_icon.png" alt=""></a>
+            </div>
+            <h4>{{mCtrl.rep.role}}</h4>
+            <h4>{{mCtrl.party(mCtrl.rep.party)}}</h4>
+            <h4>{{mCtrl.rep.next_election}}</h4>
+          </a>
           </div>
         </div>
       </div>
-      <div class="col-md-4">
-        <h3>Representatives</h3>
-        <div class="row">
-          <h4>{{mCtrl.rep.name}}</h4>
-        </div>
-      </div>
-    </div>
-  </div>
 
-</div>
+  </body>
+</html>
