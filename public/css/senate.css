@@ -1,5 +1,47 @@
+h1 {
+  text-align: center;
+}
+
+.sort {
+  text-align: center;
+}
+
+.checkbox {
+  padding-left: 20px;
+}
+
 .member {
   display: inline-block;
   margin: 20px;
   width: 25%;
+  border-radius: 10%;
+  padding: 20px;
+}
+
+a {
+  color: black;
+}
+
+.Republican {
+  background-color: rgba(255, 0, 0, .8);
+}
+
+.Democrat {
+  background-color: rgba(0, 0, 255, .8);
+}
+
+h4 {
+  text-align: center;
+}
+
+h5 {
+  text-align: center;
+}
+
+.hideIt {
+  display: none;
+}
+
+.hideState {
+  display: none;
 }

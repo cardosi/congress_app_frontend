@@ -7,11 +7,347 @@
   </head>
   <body>
     <div>
-      <h1>Senate Page</h1>
-      <div class="member" ng-repeat="member in sCtrl.members">
-        <h4><a href="senate/{{member.id}}">{{member.first_name}} {{member.last_name}}</a></h4>
-        <p>Party: {{member.party}}</p>
-        <p>State: {{member.state}}</p>
+      <h1>Members of the {{sCtrl.ordinal(sCtrl.congress)}} Senate</h1>
+      <div class="row">
+        <div class="col-sm-2 text-center">
+          <h3 class="btn btn-primary" type="button" data-toggle="collapse" data-target='#collapseCongress' aria-expanded="false" aria-controls="collapseCongress">Congress</h3>
+          <div class="collapse" id="collapseCongress">
+            <div class="radio">
+              <label>
+                <input type="radio" name="optionsRadios" id="115" value="115" checked ng-click="sCtrl.updateSen(115)">
+                115th
+              </label><br>
+              <label>
+                <input type="radio" name="optionsRadios" id="114" value="114" ng-click="sCtrl.updateSen(114)">
+                114th
+              </label><br>
+              <label>
+                <input type="radio" name="optionsRadios" id="113" value="113" ng-click="sCtrl.updateSen(113)">
+                113th
+              </label><br>
+              <label>
+                <input type="radio" name="optionsRadios" id="112" value="112" ng-click="sCtrl.updateSen(112)">
+                112th
+              </label><br>
+              <label>
+                <input type="radio" name="optionsRadios" id="111" value="111" ng-click="sCtrl.updateSen(111)">
+                111th
+              </label><br>
+              <label>
+                <input type="radio" name="optionsRadios" id="110" value="110" ng-click="sCtrl.updateSen(110)">
+                110th
+              </label><br>
+              <label>
+                <input type="radio" name="optionsRadios" id="109" value="109" ng-click="sCtrl.updateSen(109)">
+                109th
+              </label><br>
+              <label>
+                <input type="radio" name="optionsRadios" id="108" value="108" ng-click="sCtrl.updateSen(108)">
+                108th
+              </label><br>
+              <label>
+                <input type="radio" name="optionsRadios" id="107" value="107" ng-click="sCtrl.updateSen(107)">
+                107th
+              </label><br>
+              <label>
+                <input type="radio" name="optionsRadios" id="106" value="106" ng-click="sCtrl.updateSen(106)">
+                106th
+              </label><br>
+              <label>
+                <input type="radio" name="optionsRadios" id="105" value="105" ng-click="sCtrl.updateSen(105)">
+                105th
+              </label><br>
+              <label>
+                <input type="radio" name="optionsRadios" id="104" value="104" ng-click="sCtrl.updateSen(104)">
+                104th
+              </label>
+            </div>
+          </div><br>
+          <h3 class="btn btn-primary sort" type="button" data-toggle="collapse" data-target='#collapseSort' aria-expanded="false" aria-controls="collapseSort">Sort</h3>
+          <div class="collapse" id="collapseSort">
+            <h3 class="sort"><span class="label label-default">State</span></h3>
+            <div class="btn-group" role="group">
+              <button ng-click="sCtrl.alphaSort()" type="button" class="btn btn-default btn-lg">
+                <span class="glyphicon glyphicon-sort-by-alphabet" aria-hidden="true"></span>
+              </button>
+              <button ng-click="sCtrl.alphaSortRev()" type="button" class="btn btn-default btn-lg">
+                <span class="glyphicon glyphicon-sort-by-alphabet-alt" aria-hidden="true"></span>
+              </button>
+            </div>
+            <h3 class="sort"><span class="label label-default">Seniority</span></h3>
+            <div class="btn-group" role="group">
+              <button ng-click="sCtrl.senioritySort()" type="button" class="btn btn-default btn-lg">
+                <span class="glyphicon glyphicon-sort-by-attributes" aria-hidden="true"></span>
+              </button>
+              <button ng-click="sCtrl.senioritySortRev()" type="button" class="btn btn-default btn-lg">
+                <span class="glyphicon glyphicon-sort-by-attributes-alt" aria-hidden="true"></span>
+              </button>
+            </div>
+            <h3 class="sort"><span class="label label-default">Party Vote %</span></h3>
+            <div class="btn-group" role="group">
+              <button ng-click="sCtrl.partyVoteSort()" type="button" class="btn btn-default btn-lg">
+                <span class="glyphicon glyphicon-sort-by-attributes" aria-hidden="true"></span>
+              </button>
+              <button ng-click="sCtrl.partyVoteSortRev()" type="button" class="btn btn-default btn-lg">
+                <span class="glyphicon glyphicon-sort-by-attributes-alt" aria-hidden="true"></span>
+              </button>
+            </div>
+            <h3 class="sort"><span class="label label-default">Missed Votes</span></h3>
+            <div class="btn-group" role="group">
+              <button ng-click="sCtrl.missedVoteSort()" type="button" class="btn btn-default btn-lg">
+                <span class="glyphicon glyphicon-sort-by-attributes" aria-hidden="true"></span>
+              </button>
+              <button ng-click="sCtrl.missedVoteSortRev()" type="button" class="btn btn-default btn-lg">
+                <span class="glyphicon glyphicon-sort-by-attributes-alt" aria-hidden="true"></span>
+              </button>
+            </div>
+          </div><br>
+          <h3 class="btn btn-primary" type="button" data-toggle="collapse" data-target='#collapseShow' aria-expanded="false" aria-controls="collapseShow">Show | Hide</h3>
+          <div class="collapse" id="collapseShow">
+            <h4>Party</h4>
+            <div class="checkbox text-left">
+              <label>
+                <input type="checkbox" value"" ng-click="sCtrl.showParty('D')">
+                Democrat
+              </label><br>
+              <label>
+                <input type="checkbox" value"" ng-click="sCtrl.showParty('R')">
+                Republican
+              </label><br>
+              <label>
+                <input type="checkbox" value"" ng-click="sCtrl.showParty('I')">
+                Independent
+              </label>
+            </div>
+            <h4>State</h4>
+            <div class="checkbox text-left">
+              <label>
+                <input type="checkbox" value"" ng-click="sCtrl.showState('AL')">
+                Alabama
+              </label><br>
+              <label>
+                <input type="checkbox" value"" ng-click="sCtrl.showState('AK')">
+                Alaska
+              </label><br>
+              <label>
+                <input type="checkbox" value"" ng-click="sCtrl.showState('AZ')">
+                Arizona
+              </label><br>
+              <label>
+                <input type="checkbox" value"" ng-click="sCtrl.showState('AR')">
+                Arkansas
+              </label><br>
+              <label>
+                <input type="checkbox" value"" ng-click="sCtrl.showState('CA')">
+                California
+              </label><br>
+              <label>
+                <input type="checkbox" value"" ng-click="sCtrl.showState('CO')">
+                Colorado
+              </label><br>
+              <label>
+                <input type="checkbox" value"" ng-click="sCtrl.showState('CT')">
+                Connecticut
+              </label><br>
+              <label>
+                <input type="checkbox" value"" ng-click="sCtrl.showState('DE')">
+                Delaware
+              </label><br>
+              <label>
+                <input type="checkbox" value"" ng-click="sCtrl.showState('FL')">
+                Florida
+              </label><br>
+              <label>
+                <input type="checkbox" value"" ng-click="sCtrl.showState('GA')">
+                Georgia
+              </label><br>
+              <label>
+                <input type="checkbox" value"" ng-click="sCtrl.showState('HI')">
+                Hawaii
+              </label><br>
+              <label>
+                <input type="checkbox" value"" ng-click="sCtrl.showState('ID')">
+                Idaho
+              </label><br>
+              <label>
+                <input type="checkbox" value"" ng-click="sCtrl.showState('IL')">
+                Illinois
+              </label><br>
+              <label>
+                <input type="checkbox" value"" ng-click="sCtrl.showState('IN')">
+                Indiana
+              </label><br>
+              <label>
+                <input type="checkbox" value"" ng-click="sCtrl.showState('IA')">
+                Iowa
+              </label><br>
+              <label>
+                <input type="checkbox" value"" ng-click="sCtrl.showState('KS')">
+                Kansas
+              </label><br>
+              <label>
+                <input type="checkbox" value"" ng-click="sCtrl.showState('KY')">
+                Kentucky
+              </label><br>
+              <label>
+                <input type="checkbox" value"" ng-click="sCtrl.showState('LA')">
+                Louisiana
+              </label><br>
+              <label>
+                <input type="checkbox" value"" ng-click="sCtrl.showState('ME')">
+                Maine
+              </label><br>
+              <label>
+                <input type="checkbox" value"" ng-click="sCtrl.showState('MD')">
+                Maryland
+              </label><br>
+              <label>
+                <input type="checkbox" value"" ng-click="sCtrl.showState('MA')">
+                Massachusetts
+              </label><br>
+              <label>
+                <input type="checkbox" value"" ng-click="sCtrl.showState('MI')">
+                Michigan
+              </label><br>
+              <label>
+                <input type="checkbox" value"" ng-click="sCtrl.showState('MN')">
+                Minnesota
+              </label><br>
+              <label>
+                <input type="checkbox" value"" ng-click="sCtrl.showState('MS')">
+                Mississippi
+              </label><br>
+              <label>
+                <input type="checkbox" value"" ng-click="sCtrl.showState('MO')">
+                Missouri
+              </label><br>
+              <label>
+                <input type="checkbox" value"" ng-click="sCtrl.showState('MT')">
+                Montana
+              </label><br>
+              <label>
+                <input type="checkbox" value"" ng-click="sCtrl.showState('NE')">
+                Nebraska
+              </label><br>
+              <label>
+                <input type="checkbox" value"" ng-click="sCtrl.showState('NV')">
+                Nevada
+              </label><br>
+              <label>
+                <input type="checkbox" value"" ng-click="sCtrl.showState('NH')">
+                New Hampshire
+              </label><br>
+              <label>
+                <input type="checkbox" value"" ng-click="sCtrl.showState('NJ')">
+                New Jersey
+              </label><br>
+              <label>
+                <input type="checkbox" value"" ng-click="sCtrl.showState('NM')">
+                New Mexico
+              </label><br>
+              <label>
+                <input type="checkbox" value"" ng-click="sCtrl.showState('NY')">
+                New York
+              </label><br>
+              <label>
+                <input type="checkbox" value"" ng-click="sCtrl.showState('NC')">
+                North Carolina
+              </label><br>
+              <label>
+                <input type="checkbox" value"" ng-click="sCtrl.showState('ND')">
+                North Dakota
+              </label><br>
+              <label>
+                <input type="checkbox" value"" ng-click="sCtrl.showState('OH')">
+                Ohio
+              </label><br>
+              <label>
+                <input type="checkbox" value"" ng-click="sCtrl.showState('OK')">
+                Oklahoma
+              </label><br>
+              <label>
+                <input type="checkbox" value"" ng-click="sCtrl.showState('OR')">
+                Oregon
+              </label><br>
+              <label>
+                <input type="checkbox" value"" ng-click="sCtrl.showState('PA')">
+                Pennsylvania
+              </label><br>
+              <label>
+                <input type="checkbox" value"" ng-click="sCtrl.showState('RI')">
+                Rhode Island
+              </label><br>
+              <label>
+                <input type="checkbox" value"" ng-click="sCtrl.showState('SC')">
+                South Carolina
+              </label><br>
+              <label>
+                <input type="checkbox" value"" ng-click="sCtrl.showState('SD')">
+                South Dakota
+              </label><br>
+              <label>
+                <input type="checkbox" value"" ng-click="sCtrl.showState('TN')">
+                Tennessee
+              </label><br>
+              <label>
+                <input type="checkbox" value"" ng-click="sCtrl.showState('TX')">
+                Texas
+              </label><br>
+              <label>
+                <input type="checkbox" value"" ng-click="sCtrl.showState('UT')">
+                Utah
+              </label><br>
+              <label>
+                <input type="checkbox" value"" ng-click="sCtrl.showState('VT')">
+                Vermont
+              </label><br>
+              <label>
+                <input type="checkbox" value"" ng-click="sCtrl.showState('VA')">
+                Virginia
+              </label><br>
+              <label>
+                <input type="checkbox" value"" ng-click="sCtrl.showState('WA')">
+                Washington
+              </label><br>
+              <label>
+                <input type="checkbox" value"" ng-click="sCtrl.showState('WV')">
+                West Virginia
+              </label><br>
+              <label>
+                <input type="checkbox" value"" ng-click="sCtrl.showState('WI')">
+                Wisconsin
+              </label><br>
+              <label>
+                <input type="checkbox" value"" ng-click="sCtrl.showState('WY')">
+                Wyoming
+              </label><br>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-10">
+          <div class="member {{sCtrl.party(member.party)}}" ng-repeat="member in sCtrl.members" ng-class="{ hideIt: sCtrl.hideParty.includes(member.party) && sCtrl.hideAll, hideState: sCtrl.hideState.includes(member.state) && sCtrl.hideAllState}">
+            <a href="senate/{{member.id}}">
+              <h4>{{member.first_name}} {{member.last_name}}</h4>
+              <h4>{{member.state}} - {{sCtrl.party(member.party)}}</h4>
+              <div class="row">
+                <div class="col-xs-6">
+                  <h5>Seniority:<br>{{member.seniority}}</h5>
+                </div>
+                <div class="col-xs-6">
+                  <h5>Next Election:<br>{{member.next_election}}</h5>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-6">
+                  <h5>Votes {{sCtrl.party(member.party)}}:<br>{{member.votes_with_party_pct}}%</h5>
+                </div>
+                <div class="col-xs-6">
+                  <h5>Missed Votes:<br>{{member.missed_votes}}</h5>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   </body>

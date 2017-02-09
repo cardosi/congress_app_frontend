@@ -16,10 +16,6 @@ var ordinal = function(i){
     return i + "th";
 }
 
-// congressApp.factory('billService', function(){
-//   var billQ = '';
-// });
-
 congressApp.controller('mainController', function(){
 
 });
@@ -121,6 +117,123 @@ congressApp.controller('senateController', ['$http', function($http){
       console.log(this.members);
     }.bind(this)
   );
+
+  this.congress = 115
+  this.ordinal = ordinal;
+
+  this.updateSen = function(congNum){
+    console.log(congNum);
+    $http({
+      method: 'GET',
+      url: root + congNum + '/senate/members.json',
+      headers: {'X-API-Key': apiKey}
+    }).then(
+      function(response){
+        console.log(response);
+        this.members = response.data.results[0].members;
+        this.congress = congNum;
+        console.log(this.members);
+        console.log(this.congress);
+      }.bind(this)
+    );
+  }
+
+  this.party = function(party){
+      if(party === "D"){
+        return "Democrat"
+      }else if(party === "R"){
+        return "Republican"
+      }else{
+        return "Independent"
+      }
+  }
+
+  this.alphaSort = function(){
+    console.log("sorting alphabetically");
+    this.members.sort(function(a, b){
+      return a.state.localeCompare(b.state);
+    })
+    console.log(this.members);
+  }
+
+  this.alphaSortRev = function(){
+    console.log("sorting alphabetically");
+    this.members.sort(function(a, b){
+      return b.state.localeCompare(a.state);
+    })
+    console.log(this.members);
+  }
+
+  this.senioritySort = function(){
+    console.log("sorting by seniority");
+    this.members.sort(function(a, b){
+      return parseFloat(a.seniority) - parseFloat(b.seniority);
+    })
+  }
+
+  this.senioritySortRev = function(){
+    console.log("sorting by seniority");
+    this.members.sort(function(a, b){
+      return parseFloat(b.seniority) - parseFloat(a.seniority);
+    })
+  }
+
+  this.partyVoteSort = function(){
+    console.log("sorting by party vote");
+    this.members.sort(function(a, b){
+      return parseFloat(a.votes_with_party_pct) - parseFloat(b.votes_with_party_pct);
+    })
+  }
+
+  this.partyVoteSortRev = function(){
+    console.log("sorting by party vote - reverse");
+    this.members.sort(function(a, b){
+      return parseFloat(b.votes_with_party_pct) - parseFloat(a.votes_with_party_pct);
+    })
+  }
+
+  this.missedVoteSort = function(){
+    console.log("sorting by missed votes");
+    this.members.sort(function(a, b){
+      return parseFloat(a.missed_votes) - parseFloat(b.missed_votes);
+    })
+  }
+
+  this.missedVoteSortRev = function(){
+    console.log("sorting by missed votes - reverse");
+    this.members.sort(function(a, b){
+      return parseFloat(b.missed_votes) - parseFloat(a.missed_votes);
+    })
+  }
+
+  this.hideAll = false;
+  this.hideParty = ['D', 'R', 'I'];
+
+  this.showParty = function(party){
+    this.hideAll = true;
+    var index = this.hideParty.indexOf(party);
+    if(index > -1){
+      this.hideParty.splice(index, 1);
+    }else{
+      this.hideParty.push(party);
+    }
+  }
+
+  this.hideAllState = false;
+  this.hideState = ['AK', 'AL', 'AR', 'AZ', 'CA', 'CO', 'CT', 'DC', 'DE', 'FL', 'GA', 'HI', 'IA', 'ID', 'IL', 'IN', 'KS', 'KY', 'LA', 'MA', 'MD', 'ME', 'MI', 'MN', 'MO', 'MS', 'MT', 'NC', 'ND', 'NE', 'NH', 'NJ', 'NM', 'NV', 'NY', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VA', 'VT', 'WA', 'WI', 'WV', 'WY'];
+
+  this.showState = function(state){
+    console.log('show', state);
+    this.hideAllState = true;
+    var index = this.hideState.indexOf(state);
+    if(index > -1){
+      this.hideState.splice(index, 1);
+    }else{
+      this.hideState.push(state);
+    }
+  }
+
+
 }]);
 
 congressApp.controller('senatorController', ['$routeParams', '$http', function($routeParams, $http){
@@ -211,6 +324,27 @@ congressApp.controller('houseController', ['$http', function($http){
       console.log(this.members);
     }.bind(this)
   );
+
+  this.congress = 115
+  this.ordinal = ordinal;
+
+  this.updateHouse = function(congNum){
+    console.log(congNum);
+    $http({
+      method: 'GET',
+      url: root + congNum + '/house/members.json',
+      headers: {'X-API-Key': apiKey}
+    }).then(
+      function(response){
+        console.log(response);
+        this.members = response.data.results[0].members;
+        this.congress = congNum;
+        console.log(this.members);
+        console.log(this.congress);
+      }.bind(this)
+    );
+  }
+
 
   this.party = function(party){
       if(party === "D"){
