@@ -7,11 +7,307 @@
   </head>
   <body>
     <div>
-      <h1>House Page</h1>
-      <div class="member" ng-repeat="member in hCtrl.members">
-        <h4><a href="house/{{member.id}}">{{member.first_name}} {{member.last_name}}</a></h4>
-        <p>Party: {{member.party}}</p>
-        <p>State: {{member.state}}</p>
+      <h1>House of Representatives</h1>
+      <div class="row">
+        <div class="col-sm-2 text-center">
+          <h3 class="sort">Sort By</h3>
+          <h3 class="sort"><span class="label label-default">State</span></h3>
+          <div class="btn-group" role="group">
+            <button ng-click="hCtrl.alphaSort()" type="button" class="btn btn-default btn-lg">
+              <span class="glyphicon glyphicon-sort-by-alphabet" aria-hidden="true"></span>
+            </button>
+            <button ng-click="hCtrl.alphaSortRev()" type="button" class="btn btn-default btn-lg">
+              <span class="glyphicon glyphicon-sort-by-alphabet-alt" aria-hidden="true"></span>
+            </button>
+          </div>
+          <h3 class="sort"><span class="label label-default">Seniority</span></h3>
+          <div class="btn-group" role="group">
+            <button ng-click="hCtrl.senioritySort()" type="button" class="btn btn-default btn-lg">
+              <span class="glyphicon glyphicon-sort-by-attributes" aria-hidden="true"></span>
+            </button>
+            <button ng-click="hCtrl.senioritySortRev()" type="button" class="btn btn-default btn-lg">
+              <span class="glyphicon glyphicon-sort-by-attributes-alt" aria-hidden="true"></span>
+            </button>
+          </div>
+          <h3 class="sort"><span class="label label-default">Party Vote %</span></h3>
+          <div class="btn-group" role="group">
+            <button ng-click="hCtrl.partyVoteSort()" type="button" class="btn btn-default btn-lg">
+              <span class="glyphicon glyphicon-sort-by-attributes" aria-hidden="true"></span>
+            </button>
+            <button ng-click="hCtrl.partyVoteSortRev()" type="button" class="btn btn-default btn-lg">
+              <span class="glyphicon glyphicon-sort-by-attributes-alt" aria-hidden="true"></span>
+            </button>
+          </div>
+          <h3 class="sort"><span class="label label-default">Missed Votes</span></h3>
+          <div class="btn-group" role="group">
+            <button ng-click="hCtrl.missedVoteSort()" type="button" class="btn btn-default btn-lg">
+              <span class="glyphicon glyphicon-sort-by-attributes" aria-hidden="true"></span>
+            </button>
+            <button ng-click="hCtrl.missedVoteSortRev()" type="button" class="btn btn-default btn-lg">
+              <span class="glyphicon glyphicon-sort-by-attributes-alt" aria-hidden="true"></span>
+            </button>
+          </div>
+          <h3>Show</h3>
+          <h4>Party</h4>
+          <div class="checkbox text-left">
+            <label>
+              <input type="checkbox" value"" ng-click="hCtrl.showParty('D')">
+              Democrat
+            </label><br>
+            <label>
+              <input type="checkbox" value"" ng-click="hCtrl.showParty('R')">
+              Republican
+            </label><br>
+            <label>
+              <input type="checkbox" value"" ng-click="hCtrl.showParty('I')">
+              Independent
+            </label>
+          </div>
+          <h4>State</h4>
+          <div class="checkbox text-left">
+            <label>
+              <input type="checkbox" value"" ng-click="hCtrl.showState('AL')">
+              Alabama
+            </label><br>
+            <label>
+              <input type="checkbox" value"" ng-click="hCtrl.showState('AK')">
+              Alaska
+            </label><br>
+            <label>
+              <input type="checkbox" value"" ng-click="hCtrl.showState('AZ')">
+              Arizona
+            </label><br>
+            <label>
+              <input type="checkbox" value"" ng-click="hCtrl.showState('AR')">
+              Arkansas
+            </label><br>
+            <label>
+              <input type="checkbox" value"" ng-click="hCtrl.showState('CA')">
+              California
+            </label><br>
+            <label>
+              <input type="checkbox" value"" ng-click="hCtrl.showState('CO')">
+              Colorado
+            </label><br>
+            <label>
+              <input type="checkbox" value"" ng-click="hCtrl.showState('CT')">
+              Connecticut
+            </label><br>
+            <label>
+              <input type="checkbox" value"" ng-click="hCtrl.showState('DE')">
+              Delaware
+            </label><br>
+            <label>
+              <input type="checkbox" value"" ng-click="hCtrl.showState('FL')">
+              Florida
+            </label><br>
+            <label>
+              <input type="checkbox" value"" ng-click="hCtrl.showState('GA')">
+              Georgia
+            </label><br>
+            <label>
+              <input type="checkbox" value"" ng-click="hCtrl.showState('HI')">
+              Hawaii
+            </label><br>
+            <label>
+              <input type="checkbox" value"" ng-click="hCtrl.showState('ID')">
+              Idaho
+            </label><br>
+            <label>
+              <input type="checkbox" value"" ng-click="hCtrl.showState('IL')">
+              Illinois
+            </label><br>
+            <label>
+              <input type="checkbox" value"" ng-click="hCtrl.showState('IN')">
+              Indiana
+            </label><br>
+            <label>
+              <input type="checkbox" value"" ng-click="hCtrl.showState('IA')">
+              Iowa
+            </label><br>
+            <label>
+              <input type="checkbox" value"" ng-click="hCtrl.showState('KS')">
+              Kansas
+            </label><br>
+            <label>
+              <input type="checkbox" value"" ng-click="hCtrl.showState('KY')">
+              Kentucky
+            </label><br>
+            <label>
+              <input type="checkbox" value"" ng-click="hCtrl.showState('LA')">
+              Louisiana
+            </label><br>
+            <label>
+              <input type="checkbox" value"" ng-click="hCtrl.showState('ME')">
+              Maine
+            </label><br>
+            <label>
+              <input type="checkbox" value"" ng-click="hCtrl.showState('MD')">
+              Maryland
+            </label><br>
+            <label>
+              <input type="checkbox" value"" ng-click="hCtrl.showState('MA')">
+              Massachusetts
+            </label><br>
+            <label>
+              <input type="checkbox" value"" ng-click="hCtrl.showState('MI')">
+              Michigan
+            </label><br>
+            <label>
+              <input type="checkbox" value"" ng-click="hCtrl.showState('MN')">
+              Minnesota
+            </label><br>
+            <label>
+              <input type="checkbox" value"" ng-click="hCtrl.showState('MS')">
+              Mississippi
+            </label><br>
+            <label>
+              <input type="checkbox" value"" ng-click="hCtrl.showState('MO')">
+              Missouri
+            </label><br>
+            <label>
+              <input type="checkbox" value"" ng-click="hCtrl.showState('MT')">
+              Montana
+            </label><br>
+            <label>
+              <input type="checkbox" value"" ng-click="hCtrl.showState('NE')">
+              Nebraska
+            </label><br>
+            <label>
+              <input type="checkbox" value"" ng-click="hCtrl.showState('NV')">
+              Nevada
+            </label><br>
+            <label>
+              <input type="checkbox" value"" ng-click="hCtrl.showState('NH')">
+              New Hampshire
+            </label><br>
+            <label>
+              <input type="checkbox" value"" ng-click="hCtrl.showState('NJ')">
+              New Jersey
+            </label><br>
+            <label>
+              <input type="checkbox" value"" ng-click="hCtrl.showState('NM')">
+              New Mexico
+            </label><br>
+            <label>
+              <input type="checkbox" value"" ng-click="hCtrl.showState('NY')">
+              New York
+            </label><br>
+            <label>
+              <input type="checkbox" value"" ng-click="hCtrl.showState('NC')">
+              North Carolina
+            </label><br>
+            <label>
+              <input type="checkbox" value"" ng-click="hCtrl.showState('ND')">
+              North Dakota
+            </label><br>
+            <label>
+              <input type="checkbox" value"" ng-click="hCtrl.showState('OH')">
+              Ohio
+            </label><br>
+            <label>
+              <input type="checkbox" value"" ng-click="hCtrl.showState('OK')">
+              Oklahoma
+            </label><br>
+            <label>
+              <input type="checkbox" value"" ng-click="hCtrl.showState('OR')">
+              Oregon
+            </label><br>
+            <label>
+              <input type="checkbox" value"" ng-click="hCtrl.showState('PA')">
+              Pennsylvania
+            </label><br>
+            <label>
+              <input type="checkbox" value"" ng-click="hCtrl.showState('RI')">
+              Rhode Island
+            </label><br>
+            <label>
+              <input type="checkbox" value"" ng-click="hCtrl.showState('SC')">
+              South Carolina
+            </label><br>
+            <label>
+              <input type="checkbox" value"" ng-click="hCtrl.showState('SD')">
+              South Dakota
+            </label><br>
+            <label>
+              <input type="checkbox" value"" ng-click="hCtrl.showState('TN')">
+              Tennessee
+            </label><br>
+            <label>
+              <input type="checkbox" value"" ng-click="hCtrl.showState('TX')">
+              Texas
+            </label><br>
+            <label>
+              <input type="checkbox" value"" ng-click="hCtrl.showState('UT')">
+              Utah
+            </label><br>
+            <label>
+              <input type="checkbox" value"" ng-click="hCtrl.showState('VT')">
+              Vermont
+            </label><br>
+            <label>
+              <input type="checkbox" value"" ng-click="hCtrl.showState('VA')">
+              Virginia
+            </label><br>
+            <label>
+              <input type="checkbox" value"" ng-click="hCtrl.showState('WA')">
+              Washington
+            </label><br>
+            <label>
+              <input type="checkbox" value"" ng-click="hCtrl.showState('WV')">
+              West Virginia
+            </label><br>
+            <label>
+              <input type="checkbox" value"" ng-click="hCtrl.showState('WI')">
+              Wisconsin
+            </label><br>
+            <label>
+              <input type="checkbox" value"" ng-click="hCtrl.showState('WY')">
+              Wyoming
+            </label><br>
+            <label>
+              <input type="checkbox" value"" ng-click="hCtrl.showState('AS')">
+              American Samoa
+            </label><br>
+            <label>
+              <input type="checkbox" value"" ng-click="hCtrl.showState('GU')">
+              Guam
+            </label><br>
+            <label>
+              <input type="checkbox" value"" ng-click="hCtrl.showState('MP')">
+              Northern Mariana Islands
+            </label><br>
+            <label>
+              <input type="checkbox" value"" ng-click="hCtrl.showState('VI')">
+              Virgin Islands
+            </label>
+
+          </div>
+        </div>
+        <div class="col-sm-10">
+          <div class="member {{hCtrl.party(member.party)}}" ng-repeat="member in hCtrl.members" ng-class="{ hideIt: hCtrl.hideParty.includes(member.party) && hCtrl.hideAll, hideState: hCtrl.hideState.includes(member.state) && hCtrl.hideAllState}">
+            <a href="house/{{member.id}}">
+              <h4>{{member.first_name}} {{member.last_name}}</h4>
+              <h4>{{member.state}} - {{hCtrl.party(member.party)}}</h4>
+              <div class="row">
+                <div class="col-xs-6">
+                  <h5>District:<br>{{member.district}}</h5>
+                </div>
+                <div class="col-xs-6">
+                  <h5>Seniority:<br>{{member.seniority}}</h5>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-6">
+                  <h5>Votes {{hCtrl.party(member.party)}}:<br>{{member.votes_with_party_pct}}%</h5>
+                </div>
+                <div class="col-xs-6">
+                  <h5>Missed Votes:<br>{{member.missed_votes}}</h5>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
 
