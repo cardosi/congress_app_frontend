@@ -9,7 +9,7 @@
     <h1>Senator {{senCtrl.senator.first_name}} {{senCtrl.senator.last_name}}</h1>
     <hr>
     <div class="row">
-      <div class="col-md-4">
+      <div class="col-sm-4">
         <div class="row">
           <img id="senPic" src="http://bioguide.congress.gov/bioguide/photo/{{senCtrl.senator.member_id.charAt(0)}}/{{senCtrl.senator.member_id}}.jpg" alt="">
           <div class="contactBtns">
@@ -53,7 +53,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-8">
+      <div class="col-sm-8">
         <h2>Votes</h2>
         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
           <div class="row vote panel panel-default" ng-repeat="vote in senCtrl.senVotes track by $index">
