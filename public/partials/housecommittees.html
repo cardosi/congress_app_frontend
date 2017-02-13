@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h1>House Committies</h1>
+    <div class="row">
+      <div class="col-sm-2">
+        <h3 class="btn btn-primary" type="button" data-toggle="collapse" data-target='#collapseCongress' aria-expanded="false" aria-controls="collapseCongress">Congress</h3>
+        <div class="collapse" id="collapseCongress">
+          <div class="radio">
+            <label>
+              <input type="radio" name="optionsRadios" id="115" value="115" checked ng-click="sCtrl.updateSen(115)">
+              115th
+            </label><br>
+            <label>
+              <input type="radio" name="optionsRadios" id="114" value="114" ng-click="sCtrl.updateSen(114)">
+              114th
+            </label><br>
+            <label>
+              <input type="radio" name="optionsRadios" id="113" value="113" ng-click="sCtrl.updateSen(113)">
+              113th
+            </label><br>
+            <label>
+              <input type="radio" name="optionsRadios" id="112" value="112" ng-click="sCtrl.updateSen(112)">
+              112th
+            </label><br>
+            <label>
+              <input type="radio" name="optionsRadios" id="111" value="111" ng-click="sCtrl.updateSen(111)">
+              111th
+            </label><br>
+            <label>
+              <input type="radio" name="optionsRadios" id="110" value="110" ng-click="sCtrl.updateSen(110)">
+              110th
+            </label><br>
+            <label>
+              <input type="radio" name="optionsRadios" id="109" value="109" ng-click="sCtrl.updateSen(109)">
+              109th
+            </label><br>
+            <label>
+              <input type="radio" name="optionsRadios" id="108" value="108" ng-click="sCtrl.updateSen(108)">
+              108th
+            </label><br>
+            <label>
+              <input type="radio" name="optionsRadios" id="107" value="107" ng-click="sCtrl.updateSen(107)">
+              107th
+            </label><br>
+            <label>
+              <input type="radio" name="optionsRadios" id="106" value="106" ng-click="sCtrl.updateSen(106)">
+              106th
+            </label><br>
+            <label>
+              <input type="radio" name="optionsRadios" id="105" value="105" ng-click="sCtrl.updateSen(105)">
+              105th
+            </label><br>
+            <label>
+              <input type="radio" name="optionsRadios" id="104" value="104" ng-click="sCtrl.updateSen(104)">
+              104th
+            </label>
+          </div>
+        </div><br>
+      </div>
+      <div class="col-sm-10">
+        <div ng-repeat="committee in hcCtrl.committees">
+          <h3><a href="committee/115/house/{{committee.id}}">{{committee.name}}</a></h3>
+          <h4>Chairperson: {{committee.chair}}</h4>
+          <h5>{{committee.chair_state}} - {{hcCtrl.party(committee.chair_party)}}</h5>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

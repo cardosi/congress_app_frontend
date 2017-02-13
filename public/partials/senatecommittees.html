@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h1>Senate Committies</h1>
+    <div ng-repeat="committee in scCtrl.committees">
+      <h3><a href="committee/115/senate/{{committee.id}}">{{committee.name}}</a></h3>
+      <h4>Chairperson: {{committee.chair}}</h4>
+      <h5>{{committee.chair_state}} - {{scCtrl.party(committee.chair_party)}}</h5>
+    </div>
+  </body>
+</html>

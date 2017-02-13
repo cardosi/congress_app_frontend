@@ -105,6 +105,56 @@ congressApp.controller('housebillsController', ['$rootScope', '$http', function(
 
 }]);
 
+congressApp.controller('senatecommitteesController', ['$http', function($http){
+  $http({
+    method: 'GET',
+    url: root + '115/senate/committees.json',
+    headers: {'X-API-Key': apiKey}
+  }).then(
+    function(response){
+      console.log(response);
+      this.committees = response.data.results[0].committees;
+      console.log(this.committees);
+    }.bind(this)
+  );
+
+  this.party = function(party){
+      if(party === "D"){
+        return "Democrat"
+      }else if(party === "R"){
+        return "Republican"
+      }else{
+        return "Independent"
+      }
+  }
+
+}]);
+
+congressApp.controller('housecommitteesController', ['$http', function($http){
+  $http({
+    method: 'GET',
+    url: root + '115/house/committees.json',
+    headers: {'X-API-Key': apiKey}
+  }).then(
+    function(response){
+      console.log(response);
+      this.committees = response.data.results[0].committees;
+      console.log(this.committees);
+    }.bind(this)
+  );
+
+  this.party = function(party){
+      if(party === "D"){
+        return "Democrat"
+      }else if(party === "R"){
+        return "Republican"
+      }else{
+        return "Independent"
+      }
+  }
+
+}]);
+
 congressApp.controller('senateController', ['$http', function($http){
   $http({
     method: 'GET',
@@ -236,8 +286,23 @@ congressApp.controller('senateController', ['$http', function($http){
 
 }]);
 
+congressApp.controller('committeeController', ['$routeParams', '$http', function($routeParams, $http){
+  this.congress = $routeParams.congress;
+  this.chamber = $routeParams.chamber;
+  this.id = $routeParams.id;
+  $http({
+    method: 'GET',
+    url: root + this.congress + '/' + this.chamber + '/committees/' + this.id + '.json',
+    headers: {'X-API-Key': apiKey}
+  }).then(
+    function(response){
+      console.log(response);
+    }.bind(this)
+  )
+}])
+
 congressApp.controller('senatorController', ['$routeParams', '$http', function($routeParams, $http){
-  this.id = $routeParams.id
+  this.id = $routeParams.id;
   $http({
     method: 'GET',
     url: root + 'members/' + this.id + '.json',
@@ -621,6 +686,24 @@ congressApp.config(['$routeProvider', '$locationProvider', function($routeProvid
     templateUrl: 'partials/housebills.html',
     controller: 'housebillsController',
     controllerAs: 'hbCtrl'
+  });
+
+  $routeProvider.when('/senatecommittees', {
+    templateUrl: 'partials/senatecommittees.html',
+    controller: 'senatecommitteesController',
+    controllerAs: 'scCtrl'
+  });
+
+  $routeProvider.when('/housecommittees', {
+    templateUrl: 'partials/housecommittees.html',
+    controller: 'housecommitteesController',
+    controllerAs: 'hcCtrl'
+  });
+
+  $routeProvider.when('/committee/:congress/:chamber/:id', {
+    templateUrl: 'partials/committee.html',
+    controller: 'committeeController',
+    controllerAs: 'cCtrl'
   });
 
   $routeProvider.when('/senate', {
