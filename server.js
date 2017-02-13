@@ -5,7 +5,7 @@ var district = require('congressional-district-finder');
 
 
 //PORT
-var port = 3000 || process.env.PORT;
+var port = process.env.PORT || 3000;
 
 //MIDDLEWARE
 app.use(express.static('public'));
