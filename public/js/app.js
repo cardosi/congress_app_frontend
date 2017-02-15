@@ -647,7 +647,7 @@ congressApp.controller('myCongressController', ['$http', function($http){
       }
   }
 
-  this.backend = 'http://localhost:3000';
+  this.backend = 'https://congress-explore-backend.herokuapp.com';
   this.user = {};
   this.loggedIn = false;
 
