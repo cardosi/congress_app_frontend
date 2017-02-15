@@ -7,7 +7,55 @@
   </head>
   <body>
       <h1>My Congress Page</h1>
-      <form class="form-inline" ng-submit="mCtrl.getDis()">
+      <button ng-if="mCtrl.loggedIn" ng-click="mCtrl.logOut()" type="button" class="btn btn-primary btn-lg">Log Out {{mCtrl.user.username}}</button>
+      <button ng-if="mCtrl.loggedIn === false" type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#loginModal">Log In</button>
+      <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="logInTitle">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="logInTitle">Log In</h4>
+            </div>
+            <form ng-submit="mCtrl.login(userPass)">
+              <div class="modal-body">
+                <input type="text" ng-model="userPass.username" placeholder="username"/>
+                <input type="password" ng-model="userPass.password" placeholder="password"/>
+              </div>
+              <div class="modal-footer">
+                <input  class="btn btn-primary" type="submit"/>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <button ng-if="mCtrl.loggedIn === false" type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#regModal">Register</button>
+      <div class="modal fade" id="regModal" tabindex="-1" role="dialog" aria-labelledby="regTitle">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="regTitle">Register</h4>
+            </div>
+            <form ng-submit="mCtrl.reg(userReg)">
+              <div class="modal-body">
+                <input type="text" ng-model="userReg.username" placeholder="User Name"/><br>
+                <input type="password" ng-model="userReg.password" placeholder="Password"/><br>
+                <input type="address" ng-model="userReg.address" placeholder="Street Address"/><br>
+                <input type="city" ng-model="userReg.city" placeholder="City"/><br>
+                <input type="state" ng-model="userReg.state" placeholder="State" maxlength="2"/>
+              </div>
+              <div class="modal-footer">
+                <input  class="btn btn-primary" type="submit"/>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- <form class="form-inline" ng-submit="mCtrl.getDis()">
         <div class="form-group">
           <label for="address">Address</label>
           <input ng-model="mCtrl.dis[0]" type="text" class="form-control" id="address" placeholder="123 E. Capitol St">
@@ -21,7 +69,7 @@
           <input ng-model="mCtrl.dis[2]" type="text" class="form-control" id="state" placeholder="DC" maxlength="2">
         </div>
         <button type="submit" class="btn btn-default">Get My Congress</button>
-      </form>
+      </form> -->
       <div ng-if="mCtrl.senLoad && mCtrl.houseLoad">
         <h2>{{mCtrl.districtName}}</h2>
         <div class="row">

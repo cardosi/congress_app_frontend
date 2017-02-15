@@ -573,7 +573,7 @@ congressApp.controller('myCongressController', ['$http', function($http){
   this.houseLoad = false;
 
   this.getDis = function(){
-    this.address = this.dis[0] + ' ' + this.dis[1] + ' ' + this.dis[2];
+    this.address = this.user.address + ' ' + this.user.city + ' ' + this.user.state;
     $http({
       method: 'GET',
       url: '/mycongress/dis/' + this.address,
@@ -586,7 +586,7 @@ congressApp.controller('myCongressController', ['$http', function($http){
         console.log(response);
         this.district = response.data.code;
         this.districtName = response.data.name;
-        this.state = this.dis[2];
+        this.state = this.user.state;
         this.disArr = this.district.split('');
         this.findNum = function(district){
           if(district[3] === '0'){
@@ -598,6 +598,7 @@ congressApp.controller('myCongressController', ['$http', function($http){
         }
         this.num = this.findNum(this.disArr);
         console.log(this.num);
+        this.addUserDistrict(this.district);
         this.getSen(this.state);
         this.getHouse(this.state, this.num);
 
@@ -615,21 +616,11 @@ congressApp.controller('myCongressController', ['$http', function($http){
         this.senators = response.data.results;
         this.senLoad = true;
         console.log(this.senators);
+        this.addSenIds(this.senators[0].id, this.senators[1].id);
         // this.getSenPic(this.senators[0].id);
       }.bind(this)
     );
   }
-
-  // this.getSenPic = function(senId){
-  //   $http({
-  //     method: 'GET',
-  //     url: 'http://bioguide.congress.gov/bioguide/photo/' + senId.charAt(0) + '/' + senId + '.jpg'
-  //   }).then(
-  //     function(response){
-  //       console.log(response);
-  //     }.bind(this)
-  //   );
-  // }
 
   this.getHouse = function(state, district){
     $http({
@@ -641,6 +632,7 @@ congressApp.controller('myCongressController', ['$http', function($http){
         console.log(response);
         this.rep = response.data.results[0];
         this.houseLoad = true;
+        this.addRepId(this.rep.id)
       }.bind(this)
     )
   }
@@ -653,6 +645,88 @@ congressApp.controller('myCongressController', ['$http', function($http){
       }else{
         return "Independent"
       }
+  }
+
+  this.backend = 'http://localhost:3000';
+  this.user = {};
+  this.loggedIn = false;
+
+  this.login = function(userPass){
+    console.log(userPass);
+    $http({
+      method: 'POST',
+      url: this.backend + '/users/login',
+      data: {user: {username: userPass.username, password: userPass.password}}
+    }).then(
+      function(response){
+        console.log(response);
+        this.user = response.data.user;
+        localStorage.setItem('token', JSON.stringify(response.data.token));
+        this.getDis();
+        this.loggedIn = true;
+      }.bind(this)
+    );
+  }
+
+  this.reg = function(userReg){
+    console.log(userReg);
+    $http({
+      method: 'POST',
+      url: this.backend + '/users',
+      data: {user: {username: userReg.username, password: userReg.password, address: userReg.address, city: userReg.city, state: userReg.state}}
+    }).then(
+      function(response){
+        console.log(response);
+        this.user = response.data.user;
+        localStorage.setItem('token', JSON.stringify(response.data.token));
+        this.getDis();
+        this.loggedIn = true;
+      }.bind(this)
+    );
+  }
+
+  this.addUserDistrict = function(dist){
+    $http({
+      method: 'PUT',
+      url: this.backend + '/users/' + this.user.id,
+      data: {user: {district: dist}}
+    }).then(
+      function(response){
+        console.log(response);
+      }
+    )
+  }
+
+  this.addSenIds = function(senIdOne, senIdTwo){
+    $http({
+      method: 'PUT',
+      url: this.backend + '/users/' + this.user.id,
+      data: {user: {senOneId: senIdOne, senTwoId: senIdTwo}}
+    }).then(
+      function(response){
+        console.log(response);
+      }
+    )
+  }
+
+  this.addRepId = function(repId){
+    $http({
+      method: 'PUT',
+      url: this.backend + '/users/' + this.user.id,
+      data: {user: {repId: repId}}
+    }).then(
+      function(response){
+        console.log(response);
+      }
+    )
+  }
+
+  this.logOut = function(){
+    localStorage.clear('token');
+    this.loggedIn = false;
+    this.user = {};
+    this.senLoad = false;
+    this.houseLoad = false;
   }
 
 }]);
