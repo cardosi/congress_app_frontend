@@ -6,7 +6,7 @@
     <title></title>
   </head>
   <body>
-      <h1>My Congress Page</h1>
+      <h1>My Congress</h1>
       <button ng-if="mCtrl.loggedIn" ng-click="mCtrl.logOut()" type="button" class="btn btn-primary btn-lg">Log Out {{mCtrl.user.username}}</button>
       <button ng-if="mCtrl.loggedIn === false" type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#loginModal">Log In</button>
       <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="logInTitle">
