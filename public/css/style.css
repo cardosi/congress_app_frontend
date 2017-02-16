@@ -6,3 +6,26 @@
 .dropdown:hover .dropdown-menu {
   display: block;
 }
+
+#homeTitle {
+  width: 100%;
+  text-align: center;
+}
+
+#welcome {
+  width: 100%;
+  text-align: center;
+}
+
+.navEl {
+  font-size: 1.5em;
+  color: blue;
+}
+
+.navEl:hover {
+  color: red;
+}
+
+#mycong {
+  font-size: 1em;
+}
